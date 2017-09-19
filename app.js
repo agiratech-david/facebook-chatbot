@@ -7,7 +7,6 @@ var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><
 var home1 =require('./db/home.json');
 var programs =require('./db/programs.json');
 var keynotes =require('./db/keynotes.json');
-var keynotes =require('./db/keynotes.json');
 var david =require('./db/david.json');
 var pamela =require('./db/pamela.json');
 var sessions =require('./db/sessions.json');
@@ -227,7 +226,7 @@ function sendGenericMessage2(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.keynotes
+        "message": keynotes.message
     };
     callSendAPI(messageData);
 }
@@ -236,7 +235,7 @@ function sendGenericMessage3(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.david
+        "message": david.message
     };
     callSendAPI(messageData);
 }
@@ -245,7 +244,7 @@ function sendGenericMessage4(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.pamela
+        "message": pamela.message
     };
     callSendAPI(messageData);
 }
@@ -254,7 +253,7 @@ function sendGenericMessage5(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.sessions
+        "message": sessions.message
     };
     callSendAPI(messageData);
 }
@@ -263,7 +262,7 @@ function sendGenericMessage6(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.machine
+        "message": machine.message
     };
     callSendAPI(messageData);
 }
@@ -272,7 +271,7 @@ function sendGenericMessage7(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.schedule
+        "message": schedule.message
     };
     callSendAPI(messageData);
 }
@@ -281,7 +280,7 @@ function sendGenericMessage8(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.day1
+        "message": day1.message
     };
     callSendAPI(messageData);
 }
@@ -290,7 +289,7 @@ function sendGenericMessage9(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.day2
+        "message": day2.message
     };
     callSendAPI(messageData);
 }
@@ -299,7 +298,7 @@ function sendGenericMessage10(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.day3
+        "message": day3.message
     };
     callSendAPI(messageData);
 }
@@ -308,7 +307,7 @@ function sendGenericMessage11(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.about
+        "message": about.message
     };
     callSendAPI(messageData);
 }
@@ -317,7 +316,7 @@ function sendGenericMessage12(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": message.sponsor
+        "message": sponsor.message
     };
     callSendAPI(messageData);
 }
