@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Webhook validation
-app.get('/webhook', function(req, res) {
+app.get('/facebook/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' &&
         req.query['hub.verify_token'] === 'EAAcMxumO3cEBAOiXYIHZAX2BtEs8yhTZAClIGAoYv838oD0tLiLShIrDsDoAwz8ZBBdfNaKjQuKJD2VGRXjKKpXl39fLzK1PR0PZBSSZBH4OquzWGnBLy1WMQuuNgNQp2ZAJzXsEYZCsmaWc3QnV8qQbnOZATpZAbpjPh0VWrMFOYPbRqcOmEtgnHOERZA51aCte8ZD') {
         console.log("Validating webhook");
@@ -38,7 +38,7 @@ app.get('/facebook', function(req, res) {
 });
 
 
-app.post('/webhook', function (req, res) {
+app.post('/facebook/webhook', function (req, res) {
 
     var data = req.body;
 
