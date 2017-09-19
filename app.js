@@ -31,7 +31,7 @@ app.get('/webhook', function(req, res) {
 });
 
 // Display the web page
-app.get('/', function(req, res) {
+app.get('/facebook', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(messengerButton);
     res.end();
