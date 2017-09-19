@@ -9,8 +9,7 @@ const path = require('path');
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1></div></body></html>";
 var produrl = 'https://chatbot.agiratech.com/facebook'
 // The rest of the code implements the routes for our Express server.
-
-
+var home1 =require('./db/home.json')
 var app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -39,27 +38,15 @@ app.get('/facebook', function(req, res) {
 
 
 app.post('/facebook/webhook', function (req, res) {
-
     var data = req.body;
-
-    // Make sure this is a page subscription
     if (data.object === 'page') {
-
-        // Iterate over each entry - there may be multiple if batched
         data.entry.forEach(function(entry) {
             var pageID = entry.id;
             var timeOfEvent = entry.time;
-
-            // Iterate over each messaging event
             entry.messaging.forEach(function(event) {
-
                 if (event.message) {
-
-
                     receivedMessage(event);
                 }
-
-
                 else if (event.postback) {
                     receivedPostback(event);
                 } else {
@@ -67,12 +54,6 @@ app.post('/facebook/webhook', function (req, res) {
                 }
             });
         });
-
-        // Assume all went well.
-        //
-        // You must send back a 200, within 20 seconds, to let us know
-        // you've successfully received the callback. Otherwise, the request
-        // will time out and we will keep trying to resend.
         res.sendStatus(200);
     }
 });
@@ -97,6 +78,7 @@ function receivedMessage(event) {
             case 'Hi':
             case 'hello':
             case 'Hello':
+            case 'home':
                 sendGenericMessage(senderID);
                 break;
             case 'programs':
@@ -154,7 +136,6 @@ function receivedMessage(event) {
         sendTextMessage(senderID, "Message with attachment received");
     }
 }
-
 function receivedPostback(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
@@ -224,9 +205,6 @@ function receivedPostback(event) {
 
 }
 
-//////////////////////////
-// Sending helpers
-//////////////////////////
 function sendTextMessage(recipientId, messageText) {
     var messageData = {
         recipient: {
@@ -245,57 +223,7 @@ function sendGenericMessage(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Programs",
-                                    "payload": "programs"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Schedule",
-                                    "payload": "schedule"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Location",
-                                    "payload": "location"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Sponsor",
-                                    "payload": "sponsor"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "About",
-                                    "payload": "about"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-
-        }
+        "message":home1.message
     };
 
     callSendAPI(messageData);
@@ -964,7 +892,6 @@ function callSendAPI(messageData) {
     });
 }
 
-// Set Express to listen out for HTTP requests
 var server = app.listen(process.env.PORT || 3005, function () {
     console.log("Listening on port %s", server.address().port);
 });

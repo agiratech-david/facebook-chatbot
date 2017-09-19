@@ -1,0 +1,47 @@
+{
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Programs",
+                "payload": "programs"
+              },
+              {
+                "type": "postback",
+                "title": "Schedule",
+                "payload": "schedule"
+              },
+              {
+                "type": "postback",
+                "title": "Location",
+                "payload": "location"
+              }
+            ]
+          },
+          {
+            "title": "RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Sponsor",
+                "payload": "sponsor"
+              },
+              {
+                "type": "postback",
+                "title": "About",
+                "payload": "about"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
