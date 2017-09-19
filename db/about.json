@@ -1,0 +1,32 @@
+{"message": {
+  "attachment": {
+    "type": "template",
+
+    "payload": {
+      "template_type": "generic",
+      "elements": [
+        {
+
+
+          "title": "RailsConf is brought to you by the team at Ruby Central, as well as a small but dedicated corps of volunteers. While we depend on the awesomeness of the whole Ruby community to contribute to a terrific experience every year, there are a few individuals that work especially hard to produce RailsConf.",
+          "buttons": [
+
+            {
+              "type": "postback",
+              "title": "Home",
+              "payload": "home"
+            }
+
+          ]
+        }
+
+
+
+
+
+      ]
+    }
+  }
+
+}
+}

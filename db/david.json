@@ -1,0 +1,34 @@
+{
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "David Heinemeier Hansson",
+            "item_url": "https://railsconf.com/assets/speakers/DHH-2362286c66f1263cd08c874383c404612f612bd6431152fb53f6ed42b8d4ba89.jpg",
+            "image_url": "https://railsconf.com/assets/speakers/DHH-2362286c66f1263cd08c874383c404612f612bd6431152fb53f6ed42b8d4ba89.jpg",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "KeyNotes",
+                "payload": "keynotes"
+              },
+              {
+                "type": "postback",
+                "title": "Programs",
+                "payload": "programs"
+              },
+              {
+                "type": "postback",
+                "title": "Home",
+                "payload": "home"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{ "message": {
+  "attachment": {
+    "type": "template",
+
+    "payload": {
+      "template_type": "generic",
+      "elements": [
+        {
+
+          "item_url": "https://fb-facebook-chatbot.herokuapp.com//images/sponsor1.png",
+          "image_url": "https://fb-facebook-chatbot.herokuapp.com//images/sponsor1.png",
+          "title": "Sponsor.",
+          "buttons": [
+
+            {
+              "type": "postback",
+              "title": "Home",
+              "payload": "home"
+            }
+
+          ]
+        }
+
+      ]
+    }
+  }
+
+}}

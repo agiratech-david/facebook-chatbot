@@ -1,0 +1,35 @@
+{ "message": {
+  "attachment": {
+    "type": "template",
+
+    "payload": {
+      "template_type": "generic",
+      "elements": [
+        {
+          "title": "Sessions",
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Sessions",
+              "payload": "sessions"
+            },
+            {
+              "type": "postback",
+              "title": "Programs",
+              "payload": "programs"
+            },
+            {
+              "type": "postback",
+              "title": "Home",
+              "payload": "home"
+            }
+          ]
+        }
+
+
+
+      ]
+    }
+  }
+
+}}

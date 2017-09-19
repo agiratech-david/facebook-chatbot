@@ -1,0 +1,34 @@
+{"message": {
+  "attachment": {
+    "type": "template",
+
+    "payload": {
+      "template_type": "generic",
+      "elements": [
+        {
+
+          "title": "Day 3",
+
+          "item_url": "https://fb-facebook-chatbot.herokuapp.com//images/day3.png",
+          "image_url": "https://fb-facebook-chatbot.herokuapp.com//images/day3.png",
+          "buttons": [
+
+
+            {
+              "type": "postback",
+              "title": "Schedule",
+              "payload": "schedule"
+            },
+            {
+              "type": "postback",
+              "title": "Home",
+              "payload": "home"
+            }
+          ]
+        }
+
+      ]
+    }
+  }
+
+}}

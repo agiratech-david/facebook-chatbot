@@ -1,0 +1,47 @@
+{   "message": {
+  "attachment": {
+    "type": "template",
+
+    "payload": {
+      "template_type": "generic",
+      "elements": [
+        {
+          "title": "Schedule",
+
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Day 1",
+              "payload": "day1"
+            },
+            {
+              "type": "postback",
+              "title": "Day 2",
+              "payload": "day2"
+            },
+            {
+              "type": "postback",
+              "title": "Day 3",
+              "payload": "day3"
+            }
+          ]
+        },
+
+        {
+          "title": "RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.",
+
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Home",
+              "payload": "home"
+            }
+
+          ]
+        }
+
+      ]
+    }
+  }
+
+}}

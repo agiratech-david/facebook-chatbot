@@ -1,0 +1,32 @@
+{
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "Sessions",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Machine Learning",
+                "payload": "machine"
+              },
+              {
+                "type": "postback",
+                "title": "Open Source Deep Dive",
+                "payload": "opensource"
+              },
+              {
+                "type": "postback",
+                "title": "Home",
+                "payload": "home"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

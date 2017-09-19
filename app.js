@@ -1,23 +1,29 @@
-//
-// This is main file containing code implementing the Express server and functionality for the Express echo bot.
-//
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1></div></body></html>";
-var produrl = 'https://fb-facebook-chatbot.herokuapp.com/'
-// The rest of the code implements the routes for our Express server.
-var home1 =require('./db/home.json')
+var home1 =require('./db/home.json');
+var programs =require('./db/programs.json');
+var keynotes =require('./db/keynotes.json');
+var keynotes =require('./db/keynotes.json');
+var david =require('./db/david.json');
+var pamela =require('./db/pamela.json');
+var sessions =require('./db/sessions.json');
+var machine =require('./db/machine.json');
+var schedule =require('./db/schedule.json');
+var day1 =require('./db/day1.json');
+var day2 =require('./db/day2.json');
+var day3 =require('./db/day3.json');
+var about =require('./db/about.json');
+var sponsor =require('./db/sponsor.json');
 var app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-// Webhook validation
 app.get('/facebook/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' &&
         req.query['hub.verify_token'] === 'EAAcMxumO3cEBAOiXYIHZAX2BtEs8yhTZAClIGAoYv838oD0tLiLShIrDsDoAwz8ZBBdfNaKjQuKJD2VGRXjKKpXl39fLzK1PR0PZBSSZBH4OquzWGnBLy1WMQuuNgNQp2ZAJzXsEYZCsmaWc3QnV8qQbnOZATpZAbpjPh0VWrMFOYPbRqcOmEtgnHOERZA51aCte8ZD') {
@@ -28,15 +34,11 @@ app.get('/facebook/webhook', function(req, res) {
         res.sendStatus(403);
     }
 });
-
-// Display the web page
 app.get('/facebook', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(messengerButton);
     res.end();
 });
-
-
 app.post('/facebook/webhook', function (req, res) {
     var data = req.body;
     if (data.object === 'page') {
@@ -57,18 +59,14 @@ app.post('/facebook/webhook', function (req, res) {
         res.sendStatus(200);
     }
 });
-
 function receivedMessage(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfMessage = event.timestamp;
     var message = event.message;
-
     var messageId = message.mid;
-
     var messageText = message.text;
     var messageAttachments = message.attachments;
-
     if (messageText) {
         switch (messageText) {
             case 'template':
@@ -142,21 +140,16 @@ function receivedPostback(event) {
     var timeOfPostback = event.timestamp;
     var payload = event.postback.payload;
     if (payload) {
-
-
         switch (payload) {
-
             case 'home':
                 sendGenericMessage(senderID);
                 break;
             case 'programs':
                 sendGenericMessage1(senderID);
                 break;
-
             case 'keynotes':
                 sendGenericMessage2(senderID);
                 break;
-
             case 'david':
                 sendGenericMessage3(senderID);
                 break;
@@ -172,7 +165,7 @@ function receivedPostback(event) {
                 break;
             case 'schedule':
                 sendGenericMessage7(senderID);
-                break;
+                break;sessions
             case 'day1':
                 sendGenericMessage8(senderID);
                 break;
@@ -196,15 +189,10 @@ function receivedPostback(event) {
                 sendTextMessage(senderID, messageText);
         }
     }
-    // When a postback is called, we'll send a message back to the sender to
-    // let them know it was successful
-    //sendTextMessage(senderID, "Postback called");
-    else{
+       else{
         sendGenericMessage(senderID);
     }
-
 }
-
 function sendTextMessage(recipientId, messageText) {
     var messageData = {
         recipient: {
@@ -214,10 +202,8 @@ function sendTextMessage(recipientId, messageText) {
             text: messageText
         }
     };
-
     callSendAPI(messageData);
 }
-
 function sendGenericMessage(recipientId) {
     var messageData = {
         recipient: {
@@ -225,7 +211,6 @@ function sendGenericMessage(recipientId) {
         },
         "message":home1.message
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage1(recipientId) {
@@ -233,94 +218,16 @@ function sendGenericMessage1(recipientId) {
         recipient: {
             id: recipientId
         },
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Sharing Knoledge is always Fun. Let us know what Program details you looking for",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "KeyNotes",
-                                    "payload": "keynotes"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Sessions",
-                                    "payload": "sessions"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-                    ]
-                }
-            },
-
-        }
+        "message": programs.message
     };
-
     callSendAPI(messageData);
 }
-
 function sendGenericMessage2(recipientId) {
     var messageData = {
         recipient: {
             id: recipientId
         },
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Sharing Knoledge is always Fun. Let us know what Program details you looking for",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "David Heinemeier Hansson",
-                                    "payload": "david"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Pamela Pavliscak",
-                                    "payload": "pamela"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Programs",
-                                    "payload": "programs"
-                                }
-                            ]
-                        },
-
-                        {
-                            "title": ".",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        }
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.keynotes
     };
     callSendAPI(messageData);
 }
@@ -329,47 +236,8 @@ function sendGenericMessage3(recipientId) {
         recipient: {
             id: recipientId
         },
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "David Heinemeier Hansson",
-                            item_url: "https://railsconf.com/assets/speakers/DHH-2362286c66f1263cd08c874383c404612f612bd6431152fb53f6ed42b8d4ba89.jpg",
-                            image_url: "https://railsconf.com/assets/speakers/DHH-2362286c66f1263cd08c874383c404612f612bd6431152fb53f6ed42b8d4ba89.jpg",
-
-
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "KeyNotes",
-                                    "payload": "keynotes"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Programs",
-                                    "payload": "programs"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.david
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage4(recipientId) {
@@ -377,46 +245,8 @@ function sendGenericMessage4(recipientId) {
         recipient: {
             id: recipientId
         },
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-
-
-                            item_url: "https://railsconf.com/assets/speakers/PamelaPavliscak-049ef12ebefa3d7e997af6cf02ef7fdfa403a474bb42dc4a065e6afd513140f2.jpg",
-                            image_url: "https://railsconf.com/assets/speakers/PamelaPavliscak-049ef12ebefa3d7e997af6cf02ef7fdfa403a474bb42dc4a065e6afd513140f2.jpg",
-                            "title": "Pamela Pavliscak",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "KeyNotes",
-                                    "payload": "keynotes"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Programs",
-                                    "payload": "programs"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.pamela
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage5(recipientId) {
@@ -424,47 +254,8 @@ function sendGenericMessage5(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Sessions",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Machine Learning",
-                                    "payload": "machine"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Open Source Deep Dive",
-                                    "payload": "opensource"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.sessions
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage6(recipientId) {
@@ -472,47 +263,8 @@ function sendGenericMessage6(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Sessions",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Sessions",
-                                    "payload": "sessions"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Programs",
-                                    "payload": "programs"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.machine
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage7(recipientId) {
@@ -520,62 +272,8 @@ function sendGenericMessage7(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Sessions",
-
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Day 1",
-                                    "payload": "day1"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Day 2",
-                                    "payload": "day2"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Day 3",
-                                    "payload": "day3"
-                                }
-                            ]
-                        },
-
-                        {
-                            "title": "RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.",
-
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                },
-
-                            ]
-                        }
-
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.schedule
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage8(recipientId) {
@@ -583,48 +281,8 @@ function sendGenericMessage8(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-
-                            "title": "Day1",
-
-                            item_url: produrl+"/images/day1.png",
-                            image_url: produrl+"/images/day1.png",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Schedule",
-                                    "payload": "schedule"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.day1
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage9(recipientId) {
@@ -632,50 +290,8 @@ function sendGenericMessage9(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-
-                            "title": "Day 2",
-
-                            item_url: produrl+"/images/day2.png",
-                            image_url: produrl+"/images/day2.png",
-                            "buttons": [
-
-
-                                {
-                                    "type": "postback",
-                                    "title": "Schedule",
-                                    "payload": "schedule"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.day2
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage10(recipientId) {
@@ -683,50 +299,8 @@ function sendGenericMessage10(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-
-                            "title": "Day 3",
-
-                            item_url: produrl+"/images/day3.png",
-                            image_url: produrl+"/images/day3.png",
-                            "buttons": [
-
-
-                                {
-                                    "type": "postback",
-                                    "title": "Schedule",
-                                    "payload": "schedule"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-                            ]
-                        },
-
-
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.day3
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage11(recipientId) {
@@ -734,43 +308,8 @@ function sendGenericMessage11(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-
-
-                            "title": "RailsConf is brought to you by the team at Ruby Central, as well as a small but dedicated corps of volunteers. While we depend on the awesomeness of the whole Ruby community to contribute to a terrific experience every year, there are a few individuals that work especially hard to produce RailsConf.",
-                            "buttons": [
-
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-
-                            ]
-                        },
-
-
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.about
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage12(recipientId) {
@@ -778,44 +317,8 @@ function sendGenericMessage12(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
-        "message": {
-            "attachment": {
-                "type": "template",
-
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-
-                            item_url: produrl+"/images/sponsor1.png",
-                            image_url: produrl+"/images/sponsor1.png",
-                            "title": "Sponsor.",
-                            "buttons": [
-
-                                {
-                                    "type": "postback",
-                                    "title": "Home",
-                                    "payload": "home"
-                                }
-
-                            ]
-                        },
-
-
-
-
-
-                    ]
-                }
-            },
-
-        }
+        "message": message.sponsor
     };
-
     callSendAPI(messageData);
 }
 function sendGenericMessage13(recipientId) {
@@ -823,10 +326,6 @@ function sendGenericMessage13(recipientId) {
         recipient: {
             id: recipientId
         },
-
-
-
-
         "message": {
             "attachment": {
                 "type": "template",
@@ -863,13 +362,8 @@ function sendGenericMessage13(recipientId) {
 
         }
     };
-
     callSendAPI(messageData);
 }
-
-
-
-
 function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -891,7 +385,6 @@ function callSendAPI(messageData) {
         }
     });
 }
-
 var server = app.listen(process.env.PORT || 3005, function () {
     console.log("Listening on port %s", server.address().port);
 });

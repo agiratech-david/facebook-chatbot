@@ -1,0 +1,34 @@
+{
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "item_url": "https://railsconf.com/assets/speakers/PamelaPavliscak-049ef12ebefa3d7e997af6cf02ef7fdfa403a474bb42dc4a065e6afd513140f2.jpg",
+            "image_url": "https://railsconf.com/assets/speakers/PamelaPavliscak-049ef12ebefa3d7e997af6cf02ef7fdfa403a474bb42dc4a065e6afd513140f2.jpg",
+            "title": "Pamela Pavliscak",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "KeyNotes",
+                "payload": "keynotes"
+              },
+              {
+                "type": "postback",
+                "title": "Programs",
+                "payload": "programs"
+              },
+              {
+                "type": "postback",
+                "title": "Home",
+                "payload": "home"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
