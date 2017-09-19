@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1></div></body></html>";
-var produrl = 'https://chatbot.agiratech.com/facebook'
+var produrl = 'https://fb-facebook-chatbot.herokuapp.com/'
 // The rest of the code implements the routes for our Express server.
 var home1 =require('./db/home.json')
 var app = express();
